@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ua.goit.com</groupId>
-    <artifactId>Matuzko</artifactId>
+    <artifactId>maven-build</artifactId>
     <version>1.0</version>
 
     <build>
@@ -16,6 +16,18 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>Main</mainClass>
+
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
