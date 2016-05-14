@@ -46,11 +46,19 @@
         </javac>
     </target>
 
-    <taskdef name = "junit" classname="org.junit.runner.JUnitCore">
+    <taskdef name = "junit" classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask">
         <classpath>
             <path refid="test.classpath"/>
         </classpath>
     </taskdef>
+
+    <target name ="test" depends="compile.test">
+        <junit outputDir ="${test.report}">
+            <classpath>
+
+            </classpath>
+        </junit>
+    </target>
 
 
 </project>
