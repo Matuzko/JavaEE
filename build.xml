@@ -1,0 +1,56 @@
+<project name="ant-build" basedir=".">
+    <property name="src" location="src/main/java"/>
+    <property name="dist" location="dist"/>
+    <property name="build" location="build"/>
+    <property name="test.src" location="src/test/java"/>
+    <property name="test.build" location="test.build"/>
+    <property name="test.report" location="test.report"/>
+    <property name="lib" location="lib"/>
+
+    <path id="test.classpath">
+        <pathelement location="${lib}/hamcrest-core-1.3.jar"/>
+        <pathelement location="${lib}/junit-4.12.jar"/>
+    </path>
+
+    <target name="init">
+        <mkdir dir="${build}"/>
+        <mkdir dir="${dist}"/>
+        <mkdir dir="${test.build}"/>
+        <mkdir dir="${test.report}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${build}" source="1.8" target="1.8"/>
+    </target>
+
+    <target name="dist" depends="compile">
+        <jar destfile="${dist}/Ant-build.jar">
+            <fileset dir="${build}"/>
+            <manifest>
+                <attribute name="Main-Class" value="Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="compile.test" depends="compile">
+        <javac srcdir="${test.src}" destdir="${test.build}" source="1.8" target="1.8">
+            <classpath>
+                <pathelement location="${build}"/>
+                <path refid="test.classpath"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <taskdef name = "junit" classname="org.junit.runner.JUnitCore">
+        <classpath>
+            <path refid="test.classpath"/>
+        </classpath>
+    </taskdef>
+
+
+</project>

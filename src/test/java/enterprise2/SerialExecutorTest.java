@@ -1,13 +1,16 @@
 package enterprise2;
 
 import org.junit.Assert;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
- * Created by Дима on 11.05.2016.
+ * Created by Дима on 14.05.2016.
  */
 public class SerialExecutorTest {
 
-    @org.junit.Test
+    @Test
     public void getValidResults() throws Exception {
         SerialExecutor<Integer> executor = new SerialExecutor<>();
         executor.addTask(new AddTask(1, 2));
