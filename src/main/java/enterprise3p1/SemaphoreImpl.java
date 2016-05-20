@@ -42,7 +42,7 @@ public class SemaphoreImpl implements Semaphore {
     public synchronized void release() {
         if (this.permits > this.availablePermits) {
             this.availablePermits++;
-            lock.notifyAll();
+            lock.notify();
         }
     }
 
@@ -50,7 +50,9 @@ public class SemaphoreImpl implements Semaphore {
     public synchronized void  release(int permits) {
         if ((this.permits - this.availablePermits) >= permits) {
             this.availablePermits+= permits;
-            lock.notifyAll();
+            for(int i = 0; i < permits; i++){
+                lock.notify();
+            }
         }
         else {
             this.availablePermits = this.permits;

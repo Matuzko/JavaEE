@@ -1,6 +1,7 @@
 package enterprise2;
 
 import enterprise2.executorExceptions.AlreadyExecutorRunException;
+import enterprise2.executorExceptions.ExecutorWasntRunYetException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,31 +19,23 @@ public class SerialExecutor<T> implements Executor<T> {
 
     @Override
 
-    public void addTask(Task<? extends T> task) {
+    public void addTask(Task<? extends T> task) throws AlreadyExecutorRunException {
         if (runStatus) {
             taskList.add(task);
             validatorList.add(null);
         } else {
-            try {
-                throw new AlreadyExecutorRunException();
-            } catch (AlreadyExecutorRunException e) {
-                e.printStackTrace();
-            }
+            throw new AlreadyExecutorRunException();
         }
 
     }
 
     @Override
-    public void addTask(Task<? extends T> task, Validator<? super T> validator) {
+    public void addTask(Task<? extends T> task, Validator<? super T> validator) throws AlreadyExecutorRunException {
         if (runStatus) {
             taskList.add(task);
             validatorList.add(validator);
         } else {
-            try {
-                throw new AlreadyExecutorRunException();
-            } catch (AlreadyExecutorRunException e) {
-                e.printStackTrace();
-            }
+            throw new AlreadyExecutorRunException();
         }
 
 
@@ -66,12 +59,18 @@ public class SerialExecutor<T> implements Executor<T> {
     }
 
     @Override
-    public List<T> getValidResults() {
+    public List<T> getValidResults() throws ExecutorWasntRunYetException {
+        if (true){
+            throw new ExecutorWasntRunYetException();
+        }
         return validResults;
     }
 
     @Override
-    public List<T> getInvalidResults() {
+    public List<T> getInvalidResults() throws ExecutorWasntRunYetException {
+        if (true){
+            throw new ExecutorWasntRunYetException();
+        }
         return invalidResults;
     }
 }
